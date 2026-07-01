@@ -1,10 +1,9 @@
-
 const Gameboard = (function() {
   function createGameboard() {
     const array = 
-      [".", ".", ".", 
-       ".", ".", ".", 
-       ".", ".", "."];
+      ["", "", "", 
+       "", "", "", 
+       "", "", ""];
     return {array};
   }
   return createGameboard();
@@ -14,6 +13,7 @@ const gameController = (function() {
 
   let player1 = createPlayer("player1", "x");
   let player2 = createPlayer("player2", "o");
+  let activePlayer = player1;
 
   function createPlayer(name, symbol) {
     return {
@@ -25,37 +25,52 @@ const gameController = (function() {
 
   function startGame () {
     Gameboard.array = 
-      ["0", "1", "2", 
-       "3", "4", "5", 
-       "6", "7", "8"];
+      ["", "", "", 
+       "", "", "", 
+       "", "", ""];
     //create player1
     //create player2
   }
 
-  function playRound (){
-    //check if spot is a number
-    //change spot to player symbol
-    //checkWin
-    //switchPlayer
+  function playRound (choice){
+    
+    if (Gameboard.array[choice] === "")  {
+      Gameboard.array[choice] = activePlayer.symbol;
+      checkWin();
+      switchPlayer();
+    }
   }
 
   function switchPlayer () {
-    //if move is valid (not clicking on a square already chosen)
-    //when symbol is changed, change player
+
+    if (activePlayer == player1) {
+      activePlayer = player2
+    } else { activePlayer = player1};
+    return activePlayer;
   }
 
   function checkWin () {
-    //look for patterns in array 
-    //0, 1, 2
-    //3, 4, 5
-    //6, 7, 8
-    //0, 3, 6
-    //1, 4, 7
-    //2, 5, 8
-    //0, 4, 8
-    //2, 4, 6
-    //determin which player has those symbols
-    //that player wins
+
+    const winPatterns = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+      [0, 4, 8], [2, 4, 6]             // diagonals
+    ];
+
+    for (const pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      
+      if (Gameboard.array[a] !== "" && 
+          Gameboard.array[a] === Gameboard.array[b] &&
+          Gameboard.array[b] === Gameboard.array[c]) {
+            alert(`${activePlayer.name} wins!`);
+          
+        }
+    }
+  }
+
+  function getActivePlayer () {
+    return activePlayer;
   }
 
   return {
@@ -65,7 +80,8 @@ const gameController = (function() {
     startGame,
     playRound,
     switchPlayer,
-    checkWin
+    checkWin,
+    getActivePlayer,
   }
 
 })();
@@ -79,3 +95,6 @@ function displayController () {
   // grabs dom elements
   // displays the state of elements
 };
+
+console.log(Gameboard.array);
+console.log(activePlayer);
