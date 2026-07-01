@@ -4,3 +4,5 @@ this is the start of my tic tac toe project for
 after weeks of bashing my head against a wall trying to understand modules and IIFEs, I finally got an explination that makes sense: a module is a const that uses an IIFE to make an object with specific frameworks and functions that can't be changed and aren't in global namespace. Module = (Const gameLogic = IIFE) where the module is gameLogic and the IIFE defines and returns all the functions that it would take to run the game. Then you use gameLogic.funciton to do different things ingame. 
 
 I think I've got all of the logic laid out where it needs to be. Now it's just a matter of writing the code.
+
+I've learned a lot about scope and functions today. It's been incredibly refreshing to learn how modules and IIFEs function and work together. 
