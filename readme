@@ -1,0 +1,6 @@
+this is the start of my tic tac toe project for 
+
+7/1: after weeks of bashing my head against a wall trying to understand modules and IIFEs, I finally got an explination that makes sense:
+    a module is a const that uses an IIFE to make an object with specific frameworks and functions that can't be changed and aren't in
+    global namespace. Module = (Const gameLogic = IIFE) where the module is gameLogic and the IIFE defines and returns all the functions 
+    that it would take to run the game. Then you use gameLogic.funciton to do different things ingame. 
