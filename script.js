@@ -31,6 +31,7 @@ const gameController = (function() {
        "", "", ""];
     gameWon = false;
     activePlayer = player1;
+    displayController.updateDisplay();
     //create player1
     //create player2
   }
@@ -40,6 +41,7 @@ const gameController = (function() {
       Gameboard.array[choice] = activePlayer.symbol;
       checkWin();
       switchPlayer();
+      displayController.updateDisplay();
     }
   }
 
@@ -68,7 +70,7 @@ const gameController = (function() {
         } 
     }
     const isTie = Gameboard.array.every(cell => cell !== "");
-    
+
     if (gameWon === false && isTie) {alert("It's a tie!")};
 
     return gameWon;
@@ -91,12 +93,35 @@ const gameController = (function() {
 
 })();
 
-function playerInput () {
-    //grab dom elements for clicking
-    //return those elements
+const playerInput = (function() {
+    const gameboard = document.querySelector(".gameboard");
+
+    gameboard.addEventListener("click", (event) => {
+      let target = event.target.dataset.index;
+      gameController.playRound(target);
+      displayController.updateDisplay();
+    });
+  })();
+
+const displayController = (function() {
+  const gameboard = document.querySelector(".gameboard");
+
+  function updateDisplay() {
+    while (gameboard.firstChild) {
+      gameboard.removeChild(gameboard.firstChild)
+    };
+
+    Gameboard.array.forEach((cell, index) => {
+      const square = document.createElement("div");
+      square.textContent = cell;
+      square.classList = "square";
+      square.dataset.index = index;
+      gameboard.appendChild(square);
+    });
   }
 
-function displayController () {
-  // grabs dom elements
-  // displays the state of elements
-};
+  return {
+    updateDisplay,
+  }
+
+})();
