@@ -1,13 +1,11 @@
 this is the start of my tic tac toe project for The Odin Project.
 
-the idea is that I make the logic for this game using modules and IIFEs. No global code. There will be inputs to name player1 and player2, and a start game button that will plug that in and start the game. Winner will be displayed, or tie declared once board is full. 
+the idea is that we make the logic for this game using modules and IIFEs. No global code. 
+
+on the webpage, there will be inputs to name player1 and player2, and a start game button. Current players turn, who one, or if it's a tie will be displayed.
 
 7/1: 
-after weeks of bashing my head against a wall trying to understand modules and IIFEs, I finally got an explination that makes sense: a module is a const that uses an IIFE to make an object with specific frameworks and functions that can't be changed and aren't in global namespace. Module = (Const gameLogic = IIFE) where the module is gameLogic and the IIFE defines and returns all the functions that it would take to run the game. Then you use gameLogic.funciton to do different things ingame. 
-
-I think I've got all of the logic laid out where it needs to be. Now it's just a matter of writing the code.
-
-I've learned a lot about scope and functions today. It's been incredibly refreshing to learn how modules and IIFEs function and work together. 
+after weeks of bashing my head against a wall trying to understand modules and IIFEs, I finally got an explination that makes sense: a module is a const that uses an IIFE to make an object with specific frameworks and functions that can't be changed and aren't in global namespace. So a module can be made as -> (Const gameLogic = IIFE) where the module is gameLogic and the IIFE defines and returns all the functions that it would take to run the game. Then you use gameLogic.funciton to do different things. 
 
 7/2:
-I've got the game logic all coded, as well as display controller and player inputs. I understand the module pattern better now and how it's intended to keep differnt parts seperate. Feels good to understand at this point. 
+I've got the game logic all coded, as well as display controller and player inputs. I understand the module pattern better now and how it's intended to keep differnt parts seperate. This project has been a long, arduous challenge that I'm really proud to finish. 
