@@ -11,10 +11,11 @@ const Gameboard = (function() {
 
 const gameController = (function() {
 
-  let player1 = createPlayer("player1", "x");
-  let player2 = createPlayer("player2", "o");
+  let player1;
+  let player2;
   let activePlayer = player1;
   let gameWon = false;
+  let gameRunning = false;
 
   function createPlayer(name, symbol) {
     return {
@@ -24,7 +25,13 @@ const gameController = (function() {
     }
   }
 
+  function setPlayers(name1, name2) {
+    player1 = createPlayer(name1, "X")
+    player2 = createPlayer(name2, "O")
+  }
+
   function startGame () {
+    gameRunning = true;
     Gameboard.array = 
       ["", "", "", 
        "", "", "", 
@@ -32,16 +39,16 @@ const gameController = (function() {
     gameWon = false;
     activePlayer = player1;
     displayController.updateDisplay();
-    //create player1
-    //create player2
   }
 
   function playRound (choice){
-    if (Gameboard.array[choice] === "" && gameWon === false)  {
-      Gameboard.array[choice] = activePlayer.symbol;
-      checkWin();
-      switchPlayer();
-      displayController.updateDisplay();
+    if (gameRunning) {
+      if (Gameboard.array[choice] === "" && gameWon === false)  {
+       Gameboard.array[choice] = activePlayer.symbol;
+       checkWin();
+        switchPlayer();
+        displayController.updateDisplay();
+      }
     }
   }
 
@@ -67,11 +74,15 @@ const gameController = (function() {
           Gameboard.array[b] === Gameboard.array[c]) {
             alert(`${activePlayer.name} wins!`);
           gameWon = true;
+          gameRunning = false;
         } 
     }
     const isTie = Gameboard.array.every(cell => cell !== "");
 
-    if (gameWon === false && isTie) {alert("It's a tie!")};
+    if (gameWon === false && isTie) {
+      alert("It's a tie!")
+      gameRunning = false;
+    };
 
     return gameWon;
   }
@@ -82,8 +93,7 @@ const gameController = (function() {
 
   return {
     createPlayer,
-    player1,
-    player2,
+    setPlayers,
     startGame,
     playRound,
     switchPlayer,
@@ -95,13 +105,22 @@ const gameController = (function() {
 
 const playerInput = (function() {
     const gameboard = document.querySelector(".gameboard");
+    const startButton = document.querySelector(".startButton");
+    const player1Name = document.querySelector("#player1Name");
+    const player2Name = document.querySelector("#player2Name");
 
     gameboard.addEventListener("click", (event) => {
       let target = event.target.dataset.index;
       gameController.playRound(target);
       displayController.updateDisplay();
     });
-  })();
+
+    startButton.addEventListener("click", () => {
+      gameController.setPlayers(player1Name.value, player2Name.value); 
+      gameController.startGame();
+    })
+
+})();
 
 const displayController = (function() {
   const gameboard = document.querySelector(".gameboard");
